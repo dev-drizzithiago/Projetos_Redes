@@ -28,24 +28,25 @@ class ConexaoODBCFireBirdUnico:
         except Exception as  error:
             print(error)
 
-        return self._conexao_DB = None
+        return self._conexao_DB
 
 
-class BuscaDadosBanco():
-    def __init__(self):
+class BuscaDadosBanco:
+
+    def __init__(self, banco_conectado):
         self.lista_funcionarios = list()
+        self.conexao_realizada = banco_conectado
 
-    def view_dados_bd(self, cod_empresa: int=1, conexao_banco):
-        _conexao = conexao_banco
+    def view_dados_bd(self, cod_empresa: int=1):
+        _conexao = self.conexao_realizada
         CURSOR_VRH_EMP_TCOLCON = _conexao.cursor()
-
         try:
-            CURSOR_VRH_EMP_TCOLCON = self.conexao_DB.cursor()
-            CURSOR_VRH_EMP_TCOLCON_CAD = self.conexao_DB.cursor()
-            CURSOR_VRH_EMP_TCOLCON_DOCREF = self.conexao_DB.cursor()
-            CURSOR_VRH_EMP_TCOL_VINCDIA = self.conexao_DB.cursor()
-            CURSOR_VRH_EMP_TFERIAS = self.conexao_DB.cursor()
-            CURSOR_VRH_EMP_TRESCISAO = self.conexao_DB.cursor()
+            CURSOR_VRH_EMP_TCOLCON = _conexao.cursor()
+            CURSOR_VRH_EMP_TCOLCON_CAD = _conexao.cursor()
+            CURSOR_VRH_EMP_TCOLCON_DOCREF = _conexao.cursor()
+            CURSOR_VRH_EMP_TCOL_VINCDIA = _conexao.cursor()
+            CURSOR_VRH_EMP_TFERIAS = _conexao.cursor()
+            CURSOR_VRH_EMP_TRESCISAO = _conexao.cursor()
         except AttributeError:
             print('Objeto não pode ser atribuido, verifique se o banco de dados esta disponível.')
         BDCODEMP = cod_empresa
