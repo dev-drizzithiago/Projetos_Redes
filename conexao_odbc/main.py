@@ -28,4 +28,3 @@ class ConexaoODBCFireBirdUnico:
 
 if __name__ == '__main__':
     obj_inciado = ConexaoODBCFireBirdUnico()
-    print(obj_inciado.PATH_FILE)
