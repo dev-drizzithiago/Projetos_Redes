@@ -18,7 +18,7 @@ class ConexaoODBCFireBirdUnico:
 
     def conexao_banco_dados(self):
         try:
-            conexao_DB = fdb.connect(
+            self._conexao_DB = fdb.connect(
                 user=self.USER_DB,
                 password=self.PASS_DB,
                 dsn=self.DATABASE,
@@ -27,19 +27,18 @@ class ConexaoODBCFireBirdUnico:
             print('Conexão estabelecida')
         except Exception as  error:
             print(error)
-
         return self._conexao_DB
 
 
-class BuscaDadosBanco:
+class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
 
-    def __init__(self, banco_conectado):
+    def __init__(self, banco_db_conectado):
+        super().__init__()
         self.lista_funcionarios = list()
-        self.conexao_realizada = banco_conectado
+        self.conexao_realizada = banco_db_conectado
 
     def view_dados_bd(self, cod_empresa: int=1):
         _conexao = self.conexao_realizada
-        CURSOR_VRH_EMP_TCOLCON = _conexao.cursor()
         try:
             CURSOR_VRH_EMP_TCOLCON = _conexao.cursor()
             CURSOR_VRH_EMP_TCOLCON_CAD = _conexao.cursor()
@@ -235,9 +234,21 @@ class BuscaDadosBanco:
 
 if __name__ == '__main__':
     LISTA_CLIENTES = os.getenv('LISTA_CLIENTES_SISTEMA').split(',')
-    obj_conexao_bando = ConexaoODBCFireBirdUnico()
-    obj_inciado = BuscaDadosBanco()
-    obj_inciado.view_dados_bd(LISTA_CLIENTES, obj_conexao_bando)
+
+    obj_conexao_banco = ConexaoODBCFireBirdUnico()
+    banco_conectado = obj_conexao_banco.conexao_banco_dados()
+    obj_busca_info_clientes = BuscaDadosBanco(banco_conectado)
+
+    cont_j = 0
+    cont_x = 0
 
     for cliente in LISTA_CLIENTES:
-        obj_inciado.view_dados_bd(cliente)
+        print(cont_j, cont_x)
+        dados = obj_busca_info_clientes.view_dados_bd(cliente)
+        print(dados[cont_x][cont_j])
+        cont_x += 1
+        if cont_x >= len(dados):
+            cont_j =+ 1
+
+
+
