@@ -14,13 +14,11 @@ class ConexaoODBCFireBirdUnico:
     ARQUIVO_DLL_LIBRARY_NAME = os.path.join(PATH_FILE, os.getenv('PATH_FILE_DLL_CLIENTE'))
 
     def __init__(self):
-
-        self.lista_funcionarios = list()
-        self.conexao_DB = None
+        self._conexao_DB = None
 
     def conexao_banco_dados(self):
         try:
-            self.conexao_DB = fdb.connect(
+            conexao_DB = fdb.connect(
                 user=self.USER_DB,
                 password=self.PASS_DB,
                 dsn=self.DATABASE,
@@ -30,12 +28,16 @@ class ConexaoODBCFireBirdUnico:
         except Exception as  error:
             print(error)
 
-        return self.conexao_DB
+        return self._conexao_DB = None
 
 
-    def view_dados_bd(self, cod_empresa: int=1):
-        self.conexao_DB()
-        CURSOR_VRH_EMP_TCOLCON = self.conexao_DB.cursor()
+class BuscaDadosBanco():
+    def __init__(self):
+        self.lista_funcionarios = list()
+
+    def view_dados_bd(self, cod_empresa: int=1, conexao_banco):
+        _conexao = conexao_banco
+        CURSOR_VRH_EMP_TCOLCON = _conexao.cursor()
 
         try:
             CURSOR_VRH_EMP_TCOLCON = self.conexao_DB.cursor()
@@ -231,7 +233,10 @@ class ConexaoODBCFireBirdUnico:
 
 
 if __name__ == '__main__':
+    LISTA_CLIENTES = os.getenv('LISTA_CLIENTES_SISTEMA').split(',')
+    obj_conexao_bando = ConexaoODBCFireBirdUnico()
+    obj_inciado = BuscaDadosBanco()
+    obj_inciado.view_dados_bd(LISTA_CLIENTES, obj_conexao_bando)
 
-    lista_codClientes = [83, 502, 793, 794, 912, 1645, 1935]
-    obj_inciado = ConexaoODBCFireBirdUnico()
-
+    for cliente in LISTA_CLIENTES:
+        obj_inciado.view_dados_bd(cliente)
