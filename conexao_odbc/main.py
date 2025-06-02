@@ -107,7 +107,6 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
         for valor_info_colaboradores in CADASTRO_COLABORADORES:
             dict_BD_dados_PESSOAIS_COLABORADORES = {
                 valor_info_colaboradores[0]: {
-                    'tabela': 'VRH_EMP_TCOLCON',
                     'cod_colaborador': valor_info_colaboradores[1],
                     'data_nascimento': valor_info_colaboradores[2],
                     'data_cadastro': valor_info_colaboradores[3],
@@ -132,7 +131,6 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
             if cod_colaborador not in dict_DB_DADOS_CADASTRAIS:
                 dict_DB_DADOS_CADASTRAIS[cod_colaborador] = {
                     valor_cadastro_colaboradores[0]: {
-                        'tabela': 'VRH_EMP_TCOLCON_CAD',
                         'cod_colaborador': valor_cadastro_colaboradores[1],
                         'nome_colaborador': valor_cadastro_colaboradores[2],
                         'grau_instrucao': valor_cadastro_colaboradores[3],
@@ -141,7 +139,7 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
                     }
                 }
                 lista_DADOS_CADASTRAIS.append(dict_DB_DADOS_CADASTRAIS[cod_colaborador])
-        self.lista_funcionarios.append(lista_DADOS_CADASTRAIS)
+        # self.lista_funcionarios.append(lista_DADOS_CADASTRAIS)
 
         # 2 -------------------------------------------------------------------------------------------------------
         # ok
@@ -155,14 +153,13 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
             if cod_colaborador not in dict_DB_DADOS_DOCUMENTOS_REFERENCIAS:
                 dict_DB_DADOS_DOCUMENTOS_REFERENCIAS[cod_colaborador] = {
                     valor_documentos_ref_colaboradores[0]: {
-                        'tabela': 'VRH_EMP_TCOLCON_DOCREF',
                         'cod_colaborador': valor_documentos_ref_colaboradores[1],
                         'pis_colaborador': valor_documentos_ref_colaboradores[2],
                         'rg_colaborador': valor_documentos_ref_colaboradores[3],
                     }
                 }
                 lista_DADOS_DOCUMENTOS_REFERENCIAS.append(dict_DB_DADOS_DOCUMENTOS_REFERENCIAS[cod_colaborador])
-        self.lista_funcionarios.append(lista_DADOS_DOCUMENTOS_REFERENCIAS)
+        # self.lista_funcionarios.append(lista_DADOS_DOCUMENTOS_REFERENCIAS)
 
         # 3 -------------------------------------------------------------------------------------------------------
         # ok
@@ -175,7 +172,6 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
             if cod_colaborador not in dict_DB_DADOS_CADASTRO_DADOS_DIARIOS:
                 dict_DB_DADOS_CADASTRO_DADOS_DIARIOS[cod_colaborador] = {
                     valor_cadastro_dados_diarios[0]: {
-                        'tabela': 'VRH_EMP_TCOL_VINCDIA',
                         'cod_colaborador': valor_cadastro_dados_diarios[1],
                         'data_inicio': valor_cadastro_dados_diarios[2],
                         'cod_funcao': valor_cadastro_dados_diarios[3],
@@ -184,7 +180,7 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
                     }
                 }
                 lista_DADOS_CADASTRO_DADOS_DIARIOS.append(dict_DB_DADOS_CADASTRO_DADOS_DIARIOS[cod_colaborador])
-        self.lista_funcionarios.append(lista_DADOS_CADASTRO_DADOS_DIARIOS)
+        # self.lista_funcionarios.append(lista_DADOS_CADASTRO_DADOS_DIARIOS)
 
         # 4 -------------------------------------------------------------------------------------------------------
         # ok
@@ -193,7 +189,6 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
         for valor_calculo_ferias in DADOS_CALCULO_FERIAS_COLABORADORES:
             dict_DB_DADOS_CALCULO_FERIAS = {
                 valor_calculo_ferias[0]: {
-                    'tabela': 'VRH_EMP_TFERIAS',
                     'cod_colaborador': valor_calculo_ferias[1],
                     'inicio_arquis_ferias': valor_calculo_ferias[2],
                     'cod_ferias': valor_calculo_ferias[3],
@@ -207,7 +202,7 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
                 }
             }
             lista_DADOS_CALCULO_FERIAS.append(dict_DB_DADOS_CALCULO_FERIAS)
-        self.lista_funcionarios.append(lista_DADOS_CALCULO_FERIAS)
+        # self.lista_funcionarios.append(lista_DADOS_CALCULO_FERIAS)
 
         # 6 -------------------------------------------------------------------------------------------------------
         # ok
@@ -216,7 +211,6 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
         for valor_resisao in DADOS_TABELA_RESISOES_COLABORADORES:
             dict_DB_DADOS_RESISOES = {
                 valor_resisao[0]: {
-                    'tabela': 'VRH_EMP_TRESCISAO',
                     'cod_colaborador': valor_resisao[1],
                     'data_resisao': valor_resisao[2],
                     'codigo_resisao': valor_resisao[3],
@@ -226,7 +220,7 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
                 }
             }
             lista_DADOS_RESISOES.append(dict_DB_DADOS_RESISOES)
-        self.lista_funcionarios.append(lista_DADOS_RESISOES)
+        # self.lista_funcionarios.append(lista_DADOS_RESISOES)
 
         return self.lista_funcionarios
 
@@ -239,14 +233,11 @@ if __name__ == '__main__':
     banco_conectado = obj_conexao_banco.conexao_banco_dados()
     obj_busca_info_clientes = BuscaDadosBanco(banco_conectado)
 
-    cont_j = 0
     cont_x = 0
+    cont_j = 0
+
 
     for cliente in LISTA_CLIENTES:
         dados = obj_busca_info_clientes.view_dados_bd(cliente)
-        for valor in dados:
-            print(valor[cont_x][83])
-
-
-
-
+        print(dados)
+        cont_x += 1
