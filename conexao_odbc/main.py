@@ -1,9 +1,8 @@
 import os
-
 import fdb
 from pathlib import Path
-
 from dotenv import load_dotenv
+
 load_dotenv()
 
 class ConexaoODBCFireBirdUnico:
@@ -106,7 +105,7 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
 
         for valor_info_colaboradores in CADASTRO_COLABORADORES:
             dict_BD_dados_PESSOAIS_COLABORADORES = {
-                valor_info_colaboradores[0]: {
+                valor_info_colaboradores: {
                     'cod_colaborador': valor_info_colaboradores[1],
                     'data_nascimento': valor_info_colaboradores[2],
                     'data_cadastro': valor_info_colaboradores[3],
@@ -117,8 +116,7 @@ class BuscaDadosBanco(ConexaoODBCFireBirdUnico):
                 }
             }
             lista_dados_PESSOAIS_COLABORADORES.append(dict_BD_dados_PESSOAIS_COLABORADORES)
-
-        self.lista_funcionarios.append(lista_dados_PESSOAIS_COLABORADORES)
+            self.lista_funcionarios.append(dict_BD_dados_PESSOAIS_COLABORADORES)
 
         # 1 -------------------------------------------------------------------------------------------------------
         # ok
@@ -236,8 +234,7 @@ if __name__ == '__main__':
     cont_x = 0
     cont_j = 0
 
-
     for cliente in LISTA_CLIENTES:
-        dados = obj_busca_info_clientes.view_dados_bd(cliente)
-        print(dados)
+        dados = obj_busca_info_clientes.view_dados_bd(83)
+        print(dados[cont_x])
         cont_x += 1
