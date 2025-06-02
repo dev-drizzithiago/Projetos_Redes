@@ -245,10 +245,9 @@ if __name__ == '__main__':
     for cliente in LISTA_CLIENTES:
         print(cont_j, cont_x)
         dados = obj_busca_info_clientes.view_dados_bd(cliente)
-        print(dados[cont_x][cont_j])
-        cont_x += 1
-        if cont_x >= len(dados):
-            cont_j =+ 1
+        for valor in dados:
+            print(valor[cont_x])
+
 
 
 
