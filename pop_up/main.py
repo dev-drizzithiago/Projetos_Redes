@@ -16,7 +16,7 @@ class PopUp(QWidget):
         layout.addWidget(label)
         self.setLayout(layout)
 
-        QTimer.singleShot(30000, self.close)
+        QTimer.singleShot(30_000, self.close)
 
 
 if __name__ == '__main__':
