@@ -11,7 +11,7 @@ class PopUp(QWidget):
         self.setFixedSize(300, 150)
 
         layout = QVBoxLayout()
-        label = QLabel('Esta janela será fechada em 30 segundos.')
+        label = QLabel('Alef, você já bateu o seu ponto?.')
         label.setAlignment(Qt.AlignCenter)
         layout.addWidget(label)
         self.setLayout(layout)
